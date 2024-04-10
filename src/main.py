@@ -1,7 +1,11 @@
-from textnode import TextNode
+import os
+import shutil
 
 def main():
-    dummy_obj = TextNode("This is a text node", "bold", "https://www.boot.dev")
-    print(dummy_obj)
+    if os.path.exists("public"):
+        shutil.rmtree("public")
+    elif not os.path.exists("public"):
+        os.mkdir("public")
+    shutil.copytree("static", "public")
 
 main()
