@@ -9,6 +9,6 @@ def main():
         os.mkdir("public")
     shutil.copytree("static", "public")
 
-    generate_pages_recursive("content", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 main()

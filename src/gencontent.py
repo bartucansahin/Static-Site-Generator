@@ -37,8 +37,13 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
     from_path_items = os.listdir(dir_path_content)
     for item in from_path_items:
         item_path = os.path.join(dir_path_content, item)
+
         if os.path.isfile(item_path) and os.path.splitext(item_path)[1] == '.md':
-            generate_page(item_path, template_path, dest_dir_path)
+            item = os.path.splitext(item)[0]
+            directory_path = os.path.dirname(f"{dest_dir_path}/{item}.html")
+            os.makedirs(directory_path, exist_ok=True)
+            generate_page(item_path, template_path, f"{dest_dir_path}/{item}.html")
+
         if os.path.isdir(item_path):
             if not os.path.exists(dest_dir_path):
                 os.mkdir(f"{dest_dir_path}/{item}")
