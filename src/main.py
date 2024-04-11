@@ -1,6 +1,6 @@
 import os
 import shutil
-from gencontent import generate_page
+from gencontent import generate_pages_recursive
 
 def main():
     if os.path.exists("public"):
@@ -9,6 +9,6 @@ def main():
         os.mkdir("public")
     shutil.copytree("static", "public")
 
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public/index.html")
 
 main()

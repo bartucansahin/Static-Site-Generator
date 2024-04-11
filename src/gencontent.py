@@ -1,4 +1,5 @@
 from block_markdown import markdown_to_HTMLNode
+import os
 
 
 def extract_title(markdown):
@@ -31,5 +32,14 @@ def generate_page(from_path, template_path, dest_path):
         raise Exception("File not found.")
     except Exception as e:
         raise Exception(f"Error generating page: {e}")
-
     
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    from_path_items = os.listdir(dir_path_content)
+    for item in from_path_items:
+        item_path = os.path.join(dir_path_content, item)
+        if os.path.isfile(item_path) and os.path.splitext(item_path)[1] == '.md':
+            generate_page(item_path, template_path, dest_dir_path)
+        if os.path.isdir(item_path):
+            if not os.path.exists(dest_dir_path):
+                os.mkdir(f"{dest_dir_path}/{item}")
+            generate_pages_recursive(item_path, template_path, f"{dest_dir_path}/{item}")
